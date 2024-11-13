@@ -18,7 +18,7 @@ pip install git+https://github.com/eigenP/kymograph-py.git
 
 For an example using napari, see [napari_kymograph_advanced_example.ipynb](https://github.com/eigenP/kymograph-py/blob/main/tutorials/napari_kymograph_advanced_example.ipynb) in the tutorials folder
 
-
+---
 
 ### Acknowledgements
 
