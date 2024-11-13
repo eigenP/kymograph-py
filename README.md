@@ -10,3 +10,7 @@ Install with
 ```
 pip install git+https://github.com/eigenP/kymograph-py.git
 ```
+
+## Demo
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/eigenP/kymograph-py/blob/main/tutorials/demo.ipynb)
