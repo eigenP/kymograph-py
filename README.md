@@ -2,6 +2,9 @@
 Utility code to generate kymograph plots from nD images, compatible with napari
 
 
+![image](https://github.com/user-attachments/assets/7a348ac5-dbbe-4ae6-9474-cddda83dc205)
+
+
 
 ## Instalation
 
