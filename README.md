@@ -6,7 +6,7 @@ Utility code to generate kymograph plots from nD images, compatible with napari
 
 
 
-## Instalation
+## Installation
 
 Install with
 
