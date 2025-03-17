@@ -23,12 +23,12 @@ def _():
 async def _():
     import micropip
     try:
-        import skimage
+        import pooch
     except ImportError:
         await micropip.install("scikit-image")
         await micropip.install("pooch")
-        await micropip.install("git+https://github.com/eigenP/kymograph-py.git@main#egg=kymograph-py")
-    return micropip, skimage
+        # await micropip.install("git+https://github.com/eigenP/kymograph-py.git@main#egg=kymograph-py")
+    return micropip, skimage, pooch
 
 
 @app.cell
