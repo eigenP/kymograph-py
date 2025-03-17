@@ -7,7 +7,6 @@
 # ]
 # ///
 
-
 import marimo
 
 __generated_with = "0.11.18"
@@ -17,7 +16,19 @@ app = marimo.App(width="medium")
 @app.cell
 def _():
     import marimo as mo
-    return mo
+    return (mo,)
+
+
+@app.cell
+async def _():
+    import micropip
+    try:
+        import skimage
+    except ImportError:
+        await micropip.install("scikit-image")
+        await micropip.install("pooch")
+        await micropip.install("git+https://github.com/eigenP/kymograph-py.git@main#egg=kymograph-py")
+    return micropip, skimage
 
 
 @app.cell
