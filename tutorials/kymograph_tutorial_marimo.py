@@ -1,3 +1,13 @@
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "scikit-image==0.25.2",          
+#     "pooch==1.8.2",          
+#     "git+https://github.com/eigenP/kymograph-py.git@main#egg=kymograph-py"
+# ]
+# ///
+
+
 import marimo
 
 __generated_with = "0.11.18"
@@ -7,11 +17,7 @@ app = marimo.App(width="medium")
 @app.cell
 def _():
     import marimo as mo
-    import sys
-    import subprocess
-    subprocess.run([sys.executable, "-m", "uv", "pip", "install", "git+https://github.com/eigenP/kymograph-py.git"])
-    subprocess.run([sys.executable, "-m", "uv", "pip", "install", "pooch"])
-    return mo, subprocess, sys
+    return mo
 
 
 @app.cell
