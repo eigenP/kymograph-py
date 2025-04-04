@@ -18,7 +18,7 @@ def _():
     return (mo,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 async def _():
     import micropip
     try:
@@ -33,12 +33,27 @@ async def _():
     import numpy as np
     return micropip, skimage, tifffile, kymograph_py, plt, np
 
-@app.cell
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(
+    '''
+     You can upload your own file!
+ 
+     or use scikit-image's cells 3d:
+     https://gitlab.com/scikit-image/data/-/raw/master/cells3d.tif
+    ''')
+    return
+
+
+
+@app.cell(hide_code=True)
 def _():
     # You can upload your own file!
     # or use scikit-image's cells 3d:
     # https://gitlab.com/scikit-image/data/-/raw/master/cells3d.tif 
-    f = mo.ui.file()  # Upload the file using Marimo UI
+    f = mo.ui.file(kind="area")  # Upload the file using Marimo UI
     f
     return f
 
@@ -84,11 +99,11 @@ def _():
     return (make_kymograph,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     slider_w = mo.ui.slider(start=2, stop=20, step=2, label="width", value=10)
     slider_h = mo.ui.slider(start=40, stop=300, step=20, label="height", value=100)
-    slider_s = mo.ui.slider(start=0, stop=5, step=1, label="skip_step", value=2)
+    slider_s = mo.ui.slider(start=1, stop=5, step=1, label="skip_step", value=2)
 
     mo.vstack([slider_w, slider_h, slider_s])
     return slider_h, slider_s, slider_w
@@ -98,7 +113,7 @@ def _(mo):
 def _(image, make_kymograph, np, nuclei, plt, slider_h, slider_s, slider_w):
     ### centroids
     # simply add the center of every frame (slightly adjusted) for demonstration
-    centroids_ = np.tile(np.array([int(nuclei.shape[1] // 2 * 1.2), int(nuclei.shape[2] // 2 * 0.85)]), (nuclei.shape[0], 1))
+    centroids_ = np.tile(np.array([int(image.shape[1] // 2 * 1.2), int(image.shape[2] // 2 * 0.85)]), (image.shape[0], 1))
 
 
     width_ = slider_w.value
