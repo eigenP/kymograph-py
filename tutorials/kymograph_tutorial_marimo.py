@@ -3,7 +3,7 @@
 # dependencies = [
 #     "scikit-image==0.25.2",          
 #     "pooch==1.8.2",          
-#     "git+https://github.com/eigenP/kymograph-py.git@main#egg=kymograph-py"
+#     "python-kymograph"
 # ]
 # ///
 
@@ -27,6 +27,7 @@ async def _():
     except ImportError:
         await micropip.install("scikit-image")
         await micropip.install("pooch")
+        await micropip.install("python-kymograph")
         # await micropip.install("git+https://github.com/eigenP/kymograph-py.git@main#egg=kymograph-py")
     return micropip, skimage, pooch
 
