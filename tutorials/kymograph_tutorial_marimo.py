@@ -12,7 +12,7 @@ __generated_with = "0.11.18"
 app = marimo.App(width="medium")
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _():
     import marimo as mo
     return (mo,)
@@ -58,7 +58,7 @@ def _():
     return f
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _():
     # Create a BytesIO object to read with skimage
     import io
@@ -72,7 +72,7 @@ def _():
 
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _():
     if f.name() == 'cells3d.tif':
         # Separate membranes and nuclei from the raw image
