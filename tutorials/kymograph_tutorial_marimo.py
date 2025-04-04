@@ -26,10 +26,32 @@ async def _():
         import pooch
     except ImportError:
         await micropip.install("scikit-image")
-        await micropip.install("pooch")
         await micropip.install("python-kymograph")
         # await micropip.install("git+https://github.com/eigenP/kymograph-py.git@main#egg=kymograph-py")
-    return micropip, skimage, pooch
+    return micropip, skimage, kymograph_py
+
+@app.cell
+def _():
+    # You can upload your own file!
+    # or use scikit-image's cells 3d:
+    # https://gitlab.com/scikit-image/data/-/raw/master/cells3d.tif 
+    f = mo.ui.file()  # Upload the file using Marimo UI
+    f
+    return f
+
+
+@app.cell
+def _():
+    # Create a BytesIO object to read with skimage
+    import io
+    from skimage import io as skio
+    
+    image_file = io.BytesIO(f.contents())
+    img_raw = skio.imread(image_file, plugin='tifffile')
+    
+    print("Image loaded successfully:", img_raw.shape)
+    return io, image_file, img_raw
+
 
 
 @app.cell
@@ -37,12 +59,6 @@ def _():
     import matplotlib.pyplot as plt
     import numpy as np
 
-
-    # Load sample data from skimage.data
-    from skimage.data import cells3d
-
-    # Assign the raw image to img_raw
-    img_raw = cells3d()
     # Separate membranes and nuclei from the raw image
     membranes = img_raw[:,0,...]
     nuclei = img_raw[:,1,...]
@@ -52,7 +68,7 @@ def _():
     # Add the image to the viewer with a name if working with napari
     # viewer.add_image(image, name = 'Nuclei')
     # viewer.add_image(membranes, name = 'Membranes')
-    return cells3d, image, img_raw, membranes, np, nuclei, plt
+    return image, membranes, np, nuclei, plt
 
 
 @app.cell
