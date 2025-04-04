@@ -2,7 +2,6 @@
 # requires-python = ">=3.11"
 # dependencies = [
 #     "scikit-image==0.25.2",          
-#     "pooch==1.8.2",          
 #     "python-kymograph"
 # ]
 # ///
