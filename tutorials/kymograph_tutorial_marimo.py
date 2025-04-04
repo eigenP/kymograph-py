@@ -28,7 +28,10 @@ async def _():
         await micropip.install("tifffile")
         await micropip.install("python-kymograph")
         # await micropip.install("git+https://github.com/eigenP/kymograph-py.git@main#egg=kymograph-py")
-    return micropip, skimage, tifffile, kymograph_py
+
+    import matplotlib.pyplot as plt
+    import numpy as np
+    return micropip, skimage, tifffile, kymograph_py, plt, np
 
 @app.cell
 def _():
@@ -56,19 +59,22 @@ def _():
 
 @app.cell
 def _():
-    import matplotlib.pyplot as plt
-    import numpy as np
+    if f.name() == 'cells3d.tif':
+        # Separate membranes and nuclei from the raw image
+        membranes = img_raw[:,0,...]
+        nuclei = img_raw[:,1,...]
+    
+        # Set the image of interest to the nuclei
+        image = nuclei
 
-    # Separate membranes and nuclei from the raw image
-    membranes = img_raw[:,0,...]
-    nuclei = img_raw[:,1,...]
-
-    # Set the image of interest to the nuclei
-    image = nuclei
-    # Add the image to the viewer with a name if working with napari
-    # viewer.add_image(image, name = 'Nuclei')
-    # viewer.add_image(membranes, name = 'Membranes')
-    return image, membranes, np, nuclei, plt
+    else:
+        image = img_raw
+        if image.ndim > 3:
+            # keep the first index from all dimensions except the last three
+            image = image[(0,) * (image.ndim - 3) + (...,)]
+            membranes = None
+            nuclei = None
+    return image, membranes, nuclei
 
 
 @app.cell
