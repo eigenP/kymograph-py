@@ -11,7 +11,13 @@ Utility code to generate kymograph plots from nD images, compatible with napari
 Install with
 
 ```
-pip install git+https://github.com/eigenP/kymograph-py.git
+pip install python-kymograph
+```
+
+Quickstart
+
+```
+from kymograph_py import make_kymograph
 ```
 
 ## Demo
