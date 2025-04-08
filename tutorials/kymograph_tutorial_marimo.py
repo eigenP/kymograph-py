@@ -25,7 +25,7 @@ def _():
 async def _():
     import micropip
     try:
-        import skimage
+        import python_kymograph
     except ImportError:
         await micropip.install("scikit-image")
         await micropip.install("tifffile")
@@ -35,7 +35,7 @@ async def _():
 
     import matplotlib.pyplot as plt
     import numpy as np
-    return micropip, np, plt, skimage, kymograph_py
+    return micropip, np, plt, skimage
 
 
 @app.cell(hide_code=True)
