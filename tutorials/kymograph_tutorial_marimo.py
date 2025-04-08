@@ -35,7 +35,7 @@ async def _():
 
     import matplotlib.pyplot as plt
     import numpy as np
-    return micropip, np, plt, skimage
+    return micropip, np, plt, skimage, kymograph_py
 
 
 @app.cell(hide_code=True)
