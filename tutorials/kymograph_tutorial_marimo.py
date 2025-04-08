@@ -25,14 +25,14 @@ def _():
 async def _():
     import micropip
     try:
-        import python_kymograph
+        import kymograph_py
     except ImportError:
         await micropip.install("scikit-image")
         await micropip.install("tifffile")
-        await micropip.install("imagecodecs")
         await micropip.install("python-kymograph")
-        # await micropip.install("git+https://github.com/eigenP/kymograph-py.git@main#egg=kymograph-py")
-
+        await micropip.install("imageio", keep_going=True)
+    
+    
     import matplotlib.pyplot as plt
     import numpy as np
     return micropip, np, plt, skimage
