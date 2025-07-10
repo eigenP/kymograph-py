@@ -420,7 +420,7 @@ def make_kymograph(image: np.ndarray, centroids, stabilize = False, width=5, hei
         order [T, Y, X] where T is time, Y is the Y-axis of the images, and X is the X-axis of the images.
 
     centroids: ndarray
-        An array of shape (N, 2) where N is the number of time points. Each entry contains the (x, y)
+        An array of shape (N, 2) where N is the number of time points. Each entry contains the (y, x)
         coordinates of the centroid at that time point.
 
     width: int, optional
@@ -454,7 +454,9 @@ def make_kymograph(image: np.ndarray, centroids, stabilize = False, width=5, hei
     # Initialize the kymograph list to hold slices from each time point
     kymograph_slices = []
 
-    # Process each time point based on the centroid coordinates
+    # Process each time point based on the centroid coordinates. The centroids
+    # array is expected to contain coordinates in ``(y, x)`` order. This matches
+    # the [T, Y, X] axis convention of the input image.
     for t, (y, x) in enumerate(centroids):
         # Calculate the bounding box around the centroid
         x0 = int(max(x - width // 2, 0))
