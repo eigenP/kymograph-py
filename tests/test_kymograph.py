@@ -42,3 +42,10 @@ def test_make_kymograph_output():
     
     # Check that the kymograph values are within the expected range of the original image (0, 1)
     assert kymo.min() >= 0 and kymo.max() <= 1
+
+
+def test_make_kymograph_invalid_dims():
+    image = np.random.random((256, 256))
+    centroids = np.array([[0, 0]])
+    with pytest.raises(ValueError):
+        make_kymograph(image, centroids)
