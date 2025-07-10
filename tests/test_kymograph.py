@@ -10,11 +10,12 @@ def test_make_kymograph_output():
     image = np.random.random((60, 256, 256))
     
     # Compute centroids as in your demo:
-    # x coordinate: int(image.shape[1] // 2 * 1.2)
-    # y coordinate: int(image.shape[2] // 2 * 0.85)
-    centroid_x = int(image.shape[1] // 2 * 1.2)
-    centroid_y = int(image.shape[2] // 2 * 0.85)
-    centroids = np.tile(np.array([centroid_x, centroid_y]), (image.shape[0], 1))
+    # y coordinate: int(image.shape[1] // 2 * 1.2)
+    # x coordinate: int(image.shape[2] // 2 * 0.85)
+    centroid_y = int(image.shape[1] // 2 * 1.2)
+    centroid_x = int(image.shape[2] // 2 * 0.85)
+    # Centroids are stored in (y, x) order
+    centroids = np.tile(np.array([centroid_y, centroid_x]), (image.shape[0], 1))
     
     # Call make_kymograph with specified parameters
     kymo = make_kymograph(image, centroids, width=10, height=100, skip_step=2)
