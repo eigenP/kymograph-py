@@ -1,3 +1,3 @@
-# python_kymograph/__init__.py
+# kymograph_py/__init__.py
 
 from .kymograph_py import *
