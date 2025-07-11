@@ -24,6 +24,7 @@ from kymograph_py import make_kymograph
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/eigenP/kymograph-py/blob/main/tutorials/colab_test_kymograph_py.ipynb)
 
+Try it on your browser / without an account on marimo! https://marimo.app/?slug=pdm593
 
 For an example using napari, see [napari_kymograph_advanced_example.ipynb](https://github.com/eigenP/kymograph-py/blob/main/tutorials/napari_kymograph_advanced_example.ipynb) in the tutorials folder
 
