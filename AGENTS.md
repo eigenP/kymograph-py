@@ -6,7 +6,7 @@
 
 ## Dependencies
 - Development requirements are listed in `requirements-dev.txt` which installs the package in editable mode and includes `numpy` and `pytest`.
-- The package itself depends on `numpy`, `pandas`, `tqdm`, `matplotlib`, `scikit-image`, and `scipy` as declared in `setup.py`.
+- The package itself depends on `numpy`, `tqdm`, and `scipy` as declared in `setup.py`.
 
 ## Python Versions
 - GitHub Actions tests the code on Python 3.9, 3.11, 3.12 and 3.13.

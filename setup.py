@@ -17,10 +17,7 @@ setup(
     packages=find_packages(), # Automatically find packages
     install_requires=[        # Dependencies
         'numpy',
-        'pandas',
         'tqdm',
-        'matplotlib',
-        'scikit-image',
         'scipy',
     ],
     classifiers=[             # Optional metadata
