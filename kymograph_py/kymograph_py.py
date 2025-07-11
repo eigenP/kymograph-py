@@ -5,21 +5,33 @@
 
 import numpy as np
 
-import pandas as pd
 from tqdm import tqdm
 
 
-import matplotlib.pyplot as plt
+# Lightweight implementation of phase cross-correlation to avoid the
+# scikit-image dependency.  This returns integer pixel shifts similar to
+# ``skimage.registration.phase_cross_correlation``.
+def phase_cross_correlation(reference_image, moving_image):
+    reference_image = np.asarray(reference_image)
+    moving_image = np.asarray(moving_image)
 
-from skimage.registration import phase_cross_correlation
-# from skimage.registration._phase_cross_correlation import _upsampled_dft
-# from scipy.ndimage import fourier_shift, gaussian_filter1d
+    ref_freq = np.fft.fftn(reference_image)
+    mov_freq = np.fft.fftn(moving_image)
 
+    product = ref_freq * mov_freq.conj()
+    # avoid division by zero
+    eps = np.finfo(product.dtype).eps
+    product /= np.abs(product) + eps
 
-import pandas as pd
-from tqdm import tqdm
-from skimage.filters import gaussian
-from skimage.registration import phase_cross_correlation
+    cross_correlation = np.fft.ifftn(product)
+    maxima = np.unravel_index(np.argmax(np.abs(cross_correlation)), cross_correlation.shape)
+    shifts = np.array(maxima, dtype=float)
+
+    for dim in range(len(shifts)):
+        if shifts[dim] > reference_image.shape[dim] // 2:
+            shifts[dim] -= reference_image.shape[dim]
+
+    return shifts, None, None
 
 
 
@@ -232,12 +244,9 @@ def apply_drift_correction_2D(
     :param csv_filename: The name of the CSV file to save the drift table to. Default is 'drift_table.csv'.
     :param dx_dy_weights: A list of weights to apply to the cumulative dx and dy. Default is [1, 1].
     :return: A tuple containing two elements:
-        - corrected_data: A 3D numpy array of the same shape as video_data, representing the drift-corrected video.
-        - drift_table: A pandas DataFrame containing the drift values, cumulative drift, and time points.
+        - corrected_data: A 3D numpy array of the same shape as ``video_data`` representing the drift-corrected video.
+        - drift_table: A list of dictionaries with the drift values and cumulative drift for each time point.
     """
-    import numpy as np
-    import pandas as pd
-    from tqdm import tqdm
 
     # Get dimensions
     t_shape, x_shape, y_shape = video_data.shape
@@ -394,13 +403,15 @@ def apply_drift_correction_2D(
             )
             corrected_data[time_point] = corrected_frame
 
-    # Create drift table
-    drift_table = pd.DataFrame(drift_records)
-    drift_table.sort_values(by=["Time Point"], inplace=True)
+    # Sort drift records by time point
+    drift_table = sorted(drift_records, key=lambda x: x["Time Point"])
 
-    # Optionally save drift table
-    if save_drift_table:
-        drift_table.to_csv(csv_filename, index=False)
+    if save_drift_table and drift_table:
+        import csv
+        with open(csv_filename, "w", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=drift_table[0].keys())
+            writer.writeheader()
+            writer.writerows(drift_table)
 
     # Return corrected data and drift table
     return corrected_data, drift_table
